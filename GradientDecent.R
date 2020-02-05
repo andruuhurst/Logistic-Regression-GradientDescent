@@ -15,8 +15,8 @@ GradientDecent <-function( X , y , stepSize , maxIterations){
     weightMatrix <- matrix( 0 , ncol(X), maxIterations)
     
   # for loop through 1 to max iterations
-    vec <- rep(0 , maxIterations)
-    for( x in vec ){
+    maxIteration.vec <- seq(0 , maxIterations, 1)
+    for( iteration in maxIteration.vec ){
       
     }
     # compute gradient given current weightVector
