@@ -8,16 +8,17 @@ GradientDecent <-function( X , y , stepSize , maxIterations){
   
   ### intialize
     # initialize var wieghtVector ( intiialize at zero vector / size of features)
-    weight.vec <- 
-  
+    weight.vec <- rep( 0 , ncol(X))
   
     # initialize var weightMatrix of real numbers
      # (number of rows = number of input features, number of columns = maxIterations)
-  
-  
-  
-  # for loop through 1 to max iterations
+    weightMatrix <- matrix( 0 , ncol(X), maxIterations)
     
+  # for loop through 1 to max iterations
+    vec <- rep(0 , maxIterations)
+    for( x in vec ){
+      
+    }
     # compute gradient given current weightVector
       # use function comput gradient over all trianing data
   
