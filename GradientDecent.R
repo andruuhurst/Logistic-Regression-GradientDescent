@@ -1,6 +1,23 @@
 ##Source("")
 
+#data.set.dir <- Sys.glob(file.path( "*", "data" , "txt")
+
+spam <- fread("spam.data.txt")
+SAheart <- fread("SAheart.data 2.txt")
+zip.train<- fread("zip.train.data.txt")
 #### Formatting Input/Output Matrices
+spam.y <- spam[, V58]
+spam.X <- spam[, c(1:ncol(spam)) ]
+
+SAheart.y <- SAheart[, "chd" ]
+SAheart.X <- SAheart[, c(1:10)]
+
+
+## !!! zip.x rows != zip.y rows ( off by one)
+zip.y <- zip.train[V1 == 0 | V1 == 1, 1]
+zip.y[V1 == 0 | V1 == 1]
+zip.x <- zip.train[ V1 == 0 | V1 == 1 , c(2:99)]
+
 
 #### Gradient Decent fucntion
 
@@ -15,17 +32,18 @@ GradientDecent <-function( X , y , stepSize , maxIterations){
     weightMatrix <- matrix( 0 , ncol(X), maxIterations)
     
   # for loop through 1 to max iterations
-    maxIteration.vec <- seq(0 , maxIterations, 1)
+    maxIteration.vec <- seq(1 , maxIterations, 1)
     for( iteration in maxIteration.vec ){
       
+      # compute gradient given current weightVector
+        # use function comput gradient over all trianing data
+      
+     # gradient(f, x, centered = TRUE)
+      
+      #update the weightVector by taking a step in the negative gradient decent
+  
+      #store in the resulting weightVector in corresponding col of weightMatrix
     }
-    # compute gradient given current weightVector
-      # use function comput gradient over all trianing data
-  
-    #update the weightVector by taking a step in the negative gradient decent
-
-    #store in the resulting weightVector in corresponding col of weightMatrix
-  
   #at the end return algorithm  
   return (weightMatrix)
    
