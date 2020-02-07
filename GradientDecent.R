@@ -1,22 +1,49 @@
 ##Source("")
+library(data.table)
 
 #data.set.dir <- Sys.glob(file.path( "*", "data" , "txt")
 
-spam <- fread("spam.data.txt")
-SAheart <- fread("SAheart.data 2.txt")
-zip.train<- fread("zip.train.data.txt")
+spam <- scale(fread("spam.data.txt"))
+SAheart <- scale(fread("SAheart.data 2.txt"))
+zip.t<- scale(fread("zip.train.data.txt"))
+
+# randomize 
+
+set.seed(10)
+spam <- spam[ sample(nrow(spam)),] 
+SAheart <- SAheart[ sample(nrow(SAheart)),]
+zip.t <- zip.t[sample(nrow(zip.t)),]
+
+# split data sets
+
+spam.train.size <- as.integer(.6 * nrow(spam))
+spam.test.size <-  as.integer(spam.train.size + (.2 * nrow(spam)))
+
+spam.train <- spam[c(0:spam.test.size),]
+spam.test <- spam[ c((spam.train.size + 1) : spam.test.size),]
+spam.val <- spam[ c((spam.test.size+1) : nrow(spam)),]
+
 #### Formatting Input/Output Matrices
-spam.y <- spam[, V58]
-spam.X <- spam[, c(1:ncol(spam)) ]
+
+spam.train.y <- spam.train[, 58]
+spam.train.X <- spam.train[, c(1:57) ]
+
+spam.test.y <- spam.test[, 58]
+spam.test.X <- spam.test[, c(1:57) ]
+
+spam.val.y <- spam.val[, 58]
+spam.val.y <- 
+spam.val.X <- spam.val[, c(1:57) ]
+
+## other data 
 
 SAheart.y <- SAheart[, "chd" ]
 SAheart.X <- SAheart[, c(1:10)]
 
 
 ## !!! zip.x rows != zip.y rows ( off by one)
-zip.y <- zip.train[V1 == 0 | V1 == 1, 1]
-zip.y[V1 == 0 | V1 == 1]
-zip.x <- zip.train[ V1 == 0 | V1 == 1 , c(2:99)]
+zip.y <- zip.t[V1 == 0 | V1 == 1, 1]
+zip.X <- zip.t[ V1 == 0 | V1 == 1 , c(2:99)]
 
 
 #### Gradient Decent fucntion
