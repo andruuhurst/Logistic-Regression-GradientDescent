@@ -4,7 +4,8 @@ library(data.table)
 #data.set.dir <- Sys.glob(file.path( "*", "data" , "txt")
 
 spam <- scale(fread("spam.data.txt"))
-SAheart <- scale(fread("SAheart.data 2.txt"))
+SAheart <- fread("SAheart.data 2.txt")
+SAheart <- scale(SAheart[, colnames(SAheart) != "row.names" & colnames(SAheart) != "famhist" , with=FALSE])
 zip.t<- scale(fread("zip.train.data.txt"))
 
 # randomize 
@@ -32,8 +33,10 @@ spam.test.y <- spam.test[, 58]
 spam.test.X <- spam.test[, c(1:57) ]
 
 spam.val.y <- spam.val[, 58]
-spam.val.y <- 
 spam.val.X <- spam.val[, c(1:57) ]
+
+
+
 
 ## other data 
 
@@ -46,13 +49,26 @@ zip.y <- zip.t[V1 == 0 | V1 == 1, 1]
 zip.X <- zip.t[ V1 == 0 | V1 == 1 , c(2:99)]
 
 
+# create alt labels ( y hat )
+spam.val.y[ spam.val.y > 0 ] <- 1 
+spam.val.y[ spam.val.y < 0 ] <- -1 
+
+
 #### Gradient Decent fucntion
+
+## test values
+X <- matrix(spam.train.X , nrow(spam.train.X) , ncol(spam.train.X))
+y <- matrix(spam.train.y)
+stepSize <- .001
+maxIteration <- 100
+
+##
 
 GradientDecent <-function( X , y , stepSize , maxIterations){
   
   ### intialize
     # initialize var wieghtVector ( intiialize at zero vector / size of features)
-    weight.vec <- rep( 0 , ncol(X))
+    weight.vec <- matrix(rep( 0 , ncol(X)))
   
     # initialize var weightMatrix of real numbers
      # (number of rows = number of input features, number of columns = maxIterations)
@@ -63,7 +79,9 @@ GradientDecent <-function( X , y , stepSize , maxIterations){
     for( iteration in maxIteration.vec ){
       
       # compute gradient given current weightVector
-        # use function comput gradient over all trianing data
+        # use function compute gradient over all trianing data
+      
+      grad = -(y %*% X) / ( 1 + exp( y * t(weight.vec) %*% X))
       
      # gradient(f, x, centered = TRUE)
       
