@@ -52,7 +52,7 @@ maxIteration <- 100
 
 ##
 
-GradientDecent <-function( X , y , stepSize , maxIterations){
+GradientDescent <-function( X , y , stepSize , maxIterations){
   
   ### intialize
     # initialize var wieghtVector ( intiialize at zero vector / size of features)
@@ -90,9 +90,25 @@ GradientDecent <-function( X , y , stepSize , maxIterations){
 
 
 
- #### GRAPHS
+ #### GRAPHS  #######
 
    ## Plot error rate ( % incorrectly predicted labels) & log loss as function of # iterations
+
+   PrecentError <- function( maxIterations, step){
+     
+     ### compute weightMatrix with size of iterations from 1 to max
+     iter.vec <- seq(1 , maxIterations, 1)
+     weightMatrix.vec() <- vector()
+     
+     for( i in iter.vec){
+       weightMatrix.vec <- append( GradientDescent())
+     }
+     
+     
+     ### compute the error rate for each size of weight matrix
+     
+     ### return all error rates as a function of iterations
+   } 
 
      ## include legend or direct labels for differentiation
 
