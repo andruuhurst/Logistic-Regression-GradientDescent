@@ -53,7 +53,7 @@ maxIteration <- 100
 
 ##
 
-GradientDescent <-function( X , y , spam.val.X, stepSize , maxIterations){
+GradientDescent <-function( X , y , stepSize , maxIterations){
   
   ### intialize
     # initialize var wieghtVector ( intiialize at zero vector / size of features)
@@ -107,6 +107,7 @@ GradientDescent <-function( X , y , spam.val.X, stepSize , maxIterations){
      weightMatrix.vec <- vector()
      
      for( i in iter.vec){
+        err.list <- list()
         wm<-GradientDescent( X , y , step , i )
         pred.m <- wm %*% X
      }
